@@ -15,7 +15,7 @@ Why Android Saripaar?
  - **Extensible**, now allows Custom Annotations.
  - **Synchronous** and **Asynchronous** validations, you don't have to worry about threading.
  - Supports both BURST and IMMEDIATE modes.
- - Works with **Stock Android Widgets**, no custom view dependencies.
+ - Works with **Stock Android Widgets**, no custom object dependencies.
  - Isolates validation logic using rules.
  - Compatible with other annotation-based libraries and frameworks such as [ButterKnife], [AndroidAnnotations], [RoboGuice], etc.,
 
@@ -69,12 +69,12 @@ public class RegistrationActivity extends Activity implements ValidationListener
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         for (ValidationError error : errors) {
-            View view = error.getView();
+            View object = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
             // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
+            if (object instanceof EditText) {
+                ((EditText) object).setError(message);
             } else {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }

@@ -20,7 +20,7 @@
     </Match>
 
     <Match>
-        <Package name="com.actionbarsherlock.view" />
+        <Package name="com.actionbarsherlock.object" />
     </Match>
 
     <Match>

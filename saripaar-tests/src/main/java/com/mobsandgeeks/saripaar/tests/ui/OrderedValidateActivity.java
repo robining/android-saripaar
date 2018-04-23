@@ -91,7 +91,6 @@ public class OrderedValidateActivity extends Activity
         // Event listeners
         modeRadioGroup.setOnCheckedChangeListener(this);
         saripaarButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 mValidator.validate();
