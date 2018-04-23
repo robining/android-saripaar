@@ -22,6 +22,7 @@ import com.mobsandgeeks.saripaar.exception.SaripaarViolationException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -38,15 +39,14 @@ final class Reflector {
     /**
      * Retrieves the attribute method of the given {@link java.lang.annotation.Annotation}.
      *
-     * @param annotationType  The {@link java.lang.annotation.Annotation}
-     *      {@link java.lang.Class} to check.
+     * @param annotationType The {@link java.lang.annotation.Annotation}
+     *                       {@link java.lang.Class} to check.
      * @param attributeName  Attribute name.
-     *
      * @return The {@link java.lang.reflect.Method} if the attribute is present,
-     *      null otherwise.
+     * null otherwise.
      */
     static Method getAttributeMethod(final Class<? extends Annotation> annotationType,
-            final String attributeName) {
+                                     final String attributeName) {
         Method attributeMethod = null;
         try {
             attributeMethod = annotationType.getMethod(attributeName);
@@ -59,16 +59,15 @@ final class Reflector {
     /**
      * Retrieve an attribute value from an {@link java.lang.annotation.Annotation}.
      *
-     * @param annotation  An {@link java.lang.annotation.Annotation} instance.
-     * @param attributeName  Attribute name.
-     * @param attributeDataType  {@link java.lang.Class} representing the attribute data type.
-     * @param <T>  Attribute value type.
-     *
+     * @param annotation        An {@link java.lang.annotation.Annotation} instance.
+     * @param attributeName     Attribute name.
+     * @param attributeDataType {@link java.lang.Class} representing the attribute data type.
+     * @param <T>               Attribute value type.
      * @return The attribute value.
      */
     @SuppressWarnings("unchecked")
     static <T> T getAttributeValue(final Annotation annotation, final String attributeName,
-            final Class<T> attributeDataType) {
+                                   final Class<T> attributeDataType) {
 
         T attributeValue = null;
         Class<? extends Annotation> annotationType = annotation.annotationType();
@@ -97,13 +96,12 @@ final class Reflector {
     /**
      * Checks if an annotation was annotated with the given annotation.
      *
-     * @param inspected  The {@link java.lang.annotation.Annotation} to be checked.
+     * @param inspected The {@link java.lang.annotation.Annotation} to be checked.
      * @param expected  The {@link java.lang.annotation.Annotation} that we are looking for.
-     *
      * @return true if the annotation is present, false otherwise.
      */
     static boolean isAnnotated(final Class<? extends Annotation> inspected,
-            final Class<? extends Annotation> expected) {
+                               final Class<? extends Annotation> expected) {
         boolean isAnnotated = false;
         Annotation[] declaredAnnotations = inspected.getDeclaredAnnotations();
         for (Annotation declaredAnnotation : declaredAnnotations) {
@@ -120,9 +118,8 @@ final class Reflector {
      * {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter#getData(android.view.View)}
      * {@link java.lang.reflect.Method}.
      *
-     * @param dataAdapterType  The {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}
-     *      class whose {@code getData(View)} method is required.
-     *
+     * @param dataAdapterType The {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}
+     *                        class whose {@code getData(View)} method is required.
      * @return The correct {@code getData(View)} method.
      */
     static Method findGetDataMethod(final Class<? extends ViewDataAdapter> dataAdapterType) {
@@ -155,19 +152,17 @@ final class Reflector {
     /**
      * Instantiates a {@link AnnotationRule} object for the given type.
      *
-     * @param ruleType  The {@link AnnotationRule} class to be instantiated.
-     * @param ruleAnnotation  The rule {@link java.lang.annotation.Annotation} associated with
-     *      the {@link AnnotationRule}.
-     *
+     * @param ruleType       The {@link AnnotationRule} class to be instantiated.
+     * @param ruleAnnotation The rule {@link java.lang.annotation.Annotation} associated with
+     *                       the {@link AnnotationRule}.
      * @return The instantiated {@link AnnotationRule} object.
-     *
      * @throws SaripaarViolationException if {@link AnnotationRule} does not
-     *      have a single-argument constructor that accepts a rule
-     *      {@link java.lang.annotation.Annotation} instance.
+     *                                    have a single-argument constructor that accepts a rule
+     *                                    {@link java.lang.annotation.Annotation} instance.
      */
     static AnnotationRule instantiateRule(final Class<? extends AnnotationRule> ruleType,
-            final Annotation ruleAnnotation, final ValidationContext validationContext)
-                    throws SaripaarViolationException {
+                                          final Annotation ruleAnnotation, final ValidationContext validationContext)
+            throws SaripaarViolationException {
         AnnotationRule rule = null;
 
         try {
@@ -201,10 +196,9 @@ final class Reflector {
      * Method finds the data type of the {@link AnnotationRule} that is tied up to the given rule
      * annotation.
      *
-     * @param ruleAnnotation  Rule {@link java.lang.annotation.Annotation}.
-     *
+     * @param ruleAnnotation Rule {@link java.lang.annotation.Annotation}.
      * @return The expected data type for the
-     *      {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}s.
+     * {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}s.
      */
     static Class<?> getRuleDataType(final Annotation ruleAnnotation) {
         ValidateUsing validateUsing = getValidateUsingAnnotation(ruleAnnotation.annotationType());
@@ -215,11 +209,10 @@ final class Reflector {
      * Method finds the data type of the {@link AnnotationRule} that is tied up to the given rule
      * annotation.
      *
-     * @param validateUsing  The {@link com.mobsandgeeks.saripaar.annotation.ValidateUsing}
-     *      instance.
-     *
+     * @param validateUsing The {@link com.mobsandgeeks.saripaar.annotation.ValidateUsing}
+     *                      instance.
      * @return The expected data type for the
-     *      {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}s.
+     * {@link com.mobsandgeeks.saripaar.adapter.ViewDataAdapter}s.
      */
     static Class<?> getRuleDataType(final ValidateUsing validateUsing) {
         Class<? extends AnnotationRule> rule = validateUsing.value();
@@ -264,7 +257,7 @@ final class Reflector {
     }
 
     private static Class<?> getRuleTypeFromIsValidMethod(final Class<? extends AnnotationRule> rule,
-            final Method[] methods) {
+                                                         final Method[] methods) {
 
         Class<?> returnType = null;
         for (Method method : methods) {
@@ -286,7 +279,7 @@ final class Reflector {
     }
 
     private static boolean matchesIsValidMethodSignature(final Method method,
-            final Class<?>[] parameterTypes) {
+                                                         final Class<?>[] parameterTypes) {
         int modifiers = method.getModifiers();
 
         boolean isPublic = Modifier.isPublic(modifiers);
@@ -299,5 +292,30 @@ final class Reflector {
     }
 
     private Reflector() {
+    }
+
+    public static boolean isViewField(Field field) {
+        Class<?> cls = field.getType();
+        while (cls != null && !"java.lang.Object".equals(cls.getCanonicalName())) {
+            if (View.class.getCanonicalName().equals(cls.getCanonicalName())) {
+                return true;
+            }
+            cls = cls.getSuperclass();
+        }
+
+        return false;
+    }
+
+    public static <T> T getFieldValue(Object object, Field field) {
+        field.setAccessible(true);
+        try {
+            return (T) field.get(object);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static View getViewByField(Object object, Field field) {
+        return getFieldValue(object, field);
     }
 }

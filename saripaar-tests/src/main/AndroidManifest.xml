@@ -10,73 +10,12 @@
         <activity
             android:name=".ui.OrderedValidateActivity"
             android:label="@string/title_activity_address" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.UnorderedValidateActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.OrderedValidateTillActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.UnorderedValidateTillActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.OrderedValidateBeforeActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.UnorderedValidateBeforeActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.CustomViewDataAdapterActivity"
-            android:label="@string/title_activity_custom_view" />
-        <activity
-            android:name=".ui.CustomMultipleViewDataAdaptersActivity"
-            android:label="@string/title_activity_custom_view" />
-        <activity
-            android:name=".ui.CustomAnnotationActivity"
-            android:label="@string/title_activity_custom_annotation" />
-        <activity
-            android:name=".ui.CustomAnnotationWithAdapterActivity"
-            android:label="@string/title_activity_custom_annotation_with_adapter" />
-        <activity
-            android:name=".ui.QuickRuleUnorderedActivity"
-            android:label="@string/title_activity_quick_rule" />
-        <activity
-            android:name=".ui.QuickRuleOrderedActivity"
-            android:label="@string/title_activity_quick_rule" />
-        <activity
-            android:name=".ui.QuickRuleUnorderedInOrderedActivity"
-            android:label="@string/title_activity_quick_rule" />
-        <activity
-            android:name=".ui.QuickRuleOnlyActivity"
-            android:label="@string/title_activity_quick_rule_only" />
-        <activity
-            android:name=".ui.QuickRuleOnlyControllerActivity"
-            android:label="@string/title_activity_quick_rule_only_controller" />
-        <activity
-            android:name=".ui.ConfirmPasswordWithPasswordActivity"
-            android:label="@string/title_activity_confirm_password" />
-        <activity
-            android:name=".ui.ConfirmPasswordNoPasswordActivity"
-            android:label="@string/title_activity_confirm_password" />
-        <activity
-            android:name=".ui.ConfirmPasswordSeveralPasswordsActivity"
-            android:label="@string/title_activity_confirm_password" />
-        <activity
-            android:name=".ui.OrderedSequencingActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.UnorderedSequencingActivity"
-            android:label="@string/title_activity_address" />
-        <activity
-            android:name=".ui.RemoveRulesActivity"
-            android:label="@string/title_activity_remove_rules" />
-        <activity
-            android:name=".ui.ValidateInvisibleViewsActivity"
-            android:label="@string/title_activity_validate_invisible_views" />
-        <activity
-            android:name=".ui.OptionalActivity"
-            android:label="@string/title_activity_optional" />
     </application>
 
 </manifest>

@@ -21,10 +21,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.AssertTrue;
 import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Max;
+import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.annotation.Length;
@@ -39,20 +43,24 @@ import java.util.List;
 public class OrderedValidateActivity extends Activity
         implements Validator.ValidationListener, RadioGroup.OnCheckedChangeListener {
 
+    @AssertTrue(message = "必须为真")
+    @Order(0)
+    private boolean text = true;
+
     // Fields
-    @NotEmpty
+    @NotEmpty(message = "请填写用户名称")
     @Order(1)
     private EditText mNameEditText;
 
-    @NotEmpty
+    @NotEmpty(message = "请填写地址")
     @Order(2)
     private EditText mAddressEditText;
 
-    @Email
+    @Email(message = "请填写有效的邮箱地址")
     @Order(3)
     private EditText mEmailEditText;
 
-    @NotEmpty
+    @NotEmpty(message = "请输入合法的手机号")
     @Length(min = 10, max = 10)
     @Order(4)
     private EditText mPhoneEditText;
@@ -98,7 +106,7 @@ public class OrderedValidateActivity extends Activity
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        mResultTextView.setText(Common.getFailedFieldNames(errors));
+        Toast.makeText(this, errors.get(0).getCollatedErrorMessage(this), Toast.LENGTH_SHORT).show();
     }
 
     @Override

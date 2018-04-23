@@ -18,8 +18,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.mobsandgeeks.saripaar.tests.ui.CustomAnnotationWithAdapterActivity;
-
 public class CustomAnnotationWithAdapterTest
         extends ActivityInstrumentationTestCase2<CustomAnnotationWithAdapterActivity> {
 

@@ -18,9 +18,9 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * A default implementation of the {@link com.mobsandgeeks.saripaar.Validator.ViewValidatedAction}
+ * A default implementation of the {@link Validator.ViewValidatedAction}
  * that clears error messages on {@link android.widget.EditText} views by calling the
- * {@link android.widget.TextView#setError(CharSequence)} with a {@code null} parameter.
+ * {@link TextView#setError(CharSequence)} with a {@code null} parameter.
  *
  * @author Ragunath Jawahar {@literal <rj@mobsandgeeks.com>}
  * @since 2.0
@@ -28,7 +28,11 @@ import android.widget.TextView;
 public class DefaultViewValidatedAction implements Validator.ViewValidatedAction {
 
     @Override
-    public void onAllRulesPassed(final View view) {
+    public void onAllRulesPassed(final Object obj) {
+        if(!(obj instanceof View)){
+            return;
+        }
+        View view = (View) obj;
         boolean isTextView = view instanceof TextView;
         if (isTextView) {
             ((TextView) view).setError(null);

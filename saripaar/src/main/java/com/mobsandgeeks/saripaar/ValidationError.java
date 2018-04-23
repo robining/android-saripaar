@@ -15,7 +15,6 @@
 package com.mobsandgeeks.saripaar;
 
 import android.content.Context;
-import android.view.View;
 
 import java.util.List;
 
@@ -27,28 +26,28 @@ import java.util.List;
  * @since 2.0
  */
 public class ValidationError {
-    private final View view;
+    private final Object object;
     private final List<Rule> failedRules;
 
     /**
      * Constructor.
      *
-     * @param view  A failed {@link android.view.View}.
+     * @param object  A failed {@link android.view.View}.
      * @param failedRules  A {@link java.util.List} of failed
      *      {@link com.mobsandgeeks.saripaar.Rule}s.
      */
-    ValidationError(final View view, final List<Rule> failedRules) {
-        this.view = view;
+    ValidationError(final Object object, final List<Rule> failedRules) {
+        this.object = object;
         this.failedRules = failedRules;
     }
 
     /**
      * Gets the failed {@link android.view.View}.
      *
-     * @return The failed view.
+     * @return The failed object.
      */
-    public View getView() {
-        return view;
+    public Object getObject() {
+        return object;
     }
 
     /**
@@ -85,7 +84,7 @@ public class ValidationError {
     @Override
     public String toString() {
         return "ValidationError{"
-                + "view=" + view
+                + "object=" + object
                 + ", failedRules=" + failedRules
                 + '}';
     }

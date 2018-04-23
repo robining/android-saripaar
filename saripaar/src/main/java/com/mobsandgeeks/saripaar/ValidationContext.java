@@ -23,6 +23,7 @@ import com.mobsandgeeks.saripaar.annotation.ValidateUsing;
 import com.mobsandgeeks.saripaar.exception.ConversionException;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +38,13 @@ import java.util.Set;
 public class ValidationContext {
 
     // Attributes
-    private Map<View, ArrayList<Pair<Rule, ViewDataAdapter>>> mViewRulesMap;
+    private Map<Field, ArrayList<Pair<Rule, ViewDataAdapter>>> mViewRulesMap;
     private Context mContext;
+    private Object mController;
 
-    ValidationContext(final Context context) {
+    ValidationContext(final Context context,Object controller) {
         this.mContext = context;
+        this.mController = controller;
     }
 
     /**
@@ -61,16 +64,24 @@ public class ValidationContext {
 
         // Find all views with the target rule
         List<View> annotatedViews = new ArrayList<View>();
-        Set<View> views = mViewRulesMap.keySet();
-        for (View view : views) {
-            ArrayList<Pair<Rule, ViewDataAdapter>> ruleAdapterPairs = mViewRulesMap.get(view);
-            for (Pair<Rule, ViewDataAdapter> ruleAdapterPair : ruleAdapterPairs) {
-                boolean uniqueMatchingView =
-                        annotationRuleClass.equals(ruleAdapterPair.first.getClass())
-                                && !annotatedViews.contains(view);
-                if (uniqueMatchingView) {
-                    annotatedViews.add(view);
+        Set<Field> views = mViewRulesMap.keySet();
+        for (Field field : views) {
+            try {
+                Object fieldValue = field.get(mController);
+                if(fieldValue instanceof View){
+                    View view = (View) fieldValue;
+                    ArrayList<Pair<Rule, ViewDataAdapter>> ruleAdapterPairs = mViewRulesMap.get(view);
+                    for (Pair<Rule, ViewDataAdapter> ruleAdapterPair : ruleAdapterPairs) {
+                        boolean uniqueMatchingView =
+                                annotationRuleClass.equals(ruleAdapterPair.first.getClass())
+                                        && !annotatedViews.contains(view);
+                        if (uniqueMatchingView) {
+                            annotatedViews.add(view);
+                        }
+                    }
                 }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
         }
 
@@ -116,7 +127,7 @@ public class ValidationContext {
         return mContext;
     }
 
-    void setViewRulesMap(final Map<View, ArrayList<Pair<Rule, ViewDataAdapter>>> viewRulesMap) {
+    void setViewRulesMap(final Map<Field, ArrayList<Pair<Rule, ViewDataAdapter>>> viewRulesMap) {
         mViewRulesMap = viewRulesMap;
     }
 

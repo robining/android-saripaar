@@ -17,8 +17,6 @@ package com.mobsandgeeks.saripaar.tests;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
-import com.mobsandgeeks.saripaar.tests.ui.OrderedValidateTillActivity;
-
 public class OrderedValidateTillTest
         extends ActivityInstrumentationTestCase2<OrderedValidateTillActivity> {
 
