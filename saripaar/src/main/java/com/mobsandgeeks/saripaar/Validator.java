@@ -137,7 +137,7 @@ public class Validator {
     private boolean mOrderedFields;
     private boolean mValidateInvisibleViews;
     private SequenceComparator mSequenceComparator;
-    private ViewValidatedAction mViewValidatedAction;
+    private ValidatedAction mValidatedAction;
     private Handler mViewValidatedActionHandler;
     private ValidationListener mValidationListener;
     private AsyncValidationTask mAsyncValidationTask;
@@ -153,7 +153,7 @@ public class Validator {
         mController = controller;
         mValidationMode = Mode.BURST;
         mSequenceComparator = new SequenceComparator();
-        mViewValidatedAction = new DefaultViewValidatedAction();
+        mValidatedAction = new DefaultValidatedAction();
         if (context != null) {
             mValidationContext = new ValidationContext(context, mController);
         }
@@ -259,14 +259,14 @@ public class Validator {
     }
 
     /**
-     * Set a {@link Validator.ViewValidatedAction} to the
+     * Set a {@link ValidatedAction} to the
      * {@link Validator}.
      *
-     * @param viewValidatedAction A {@link Validator.ViewValidatedAction}
+     * @param validatedAction A {@link ValidatedAction}
      *                            instance.
      */
-    public void setViewValidatedAction(final ViewValidatedAction viewValidatedAction) {
-        this.mViewValidatedAction = viewValidatedAction;
+    public void setViewValidatedAction(final ValidatedAction validatedAction) {
+        this.mValidatedAction = validatedAction;
     }
 
     /**
@@ -703,8 +703,8 @@ public class Validator {
             // Callback if a view passes all rules
             boolean viewPassedAllRules = (failedRules == null || failedRules.size() == 0)
                     && !hasMoreErrors;
-            if (viewPassedAllRules && mViewValidatedAction != null) {
-                triggerViewValidatedCallback(mViewValidatedAction, Reflector.getFieldValue(mController, field));
+            if (viewPassedAllRules && mValidatedAction != null) {
+                triggerViewValidatedCallback(mValidatedAction, Reflector.getFieldValue(mController, field));
             }
         }
 
@@ -756,15 +756,15 @@ public class Validator {
         return valid ? null : rule;
     }
 
-    private void triggerViewValidatedCallback(final ViewValidatedAction viewValidatedAction, final Object obj) {
+    private void triggerViewValidatedCallback(final ValidatedAction validatedAction, final Object obj) {
         boolean isOnMainThread = Looper.myLooper() == Looper.getMainLooper();
         if (isOnMainThread) {
-            viewValidatedAction.onAllRulesPassed(obj);
+            validatedAction.onAllRulesPassed(obj);
         } else {
             runOnMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    viewValidatedAction.onAllRulesPassed(obj);
+                    validatedAction.onAllRulesPassed(obj);
                 }
             });
         }
@@ -817,7 +817,7 @@ public class Validator {
      * @author Ragunath Jawahar {@literal <rj@mobsandgeeks.com>}
      * @since 2.0
      */
-    public interface ViewValidatedAction {
+    public interface ValidatedAction {
         void onAllRulesPassed(Object object);
     }
 

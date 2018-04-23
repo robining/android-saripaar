@@ -18,14 +18,14 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * A default implementation of the {@link Validator.ViewValidatedAction}
+ * A default implementation of the {@link Validator.ValidatedAction}
  * that clears error messages on {@link android.widget.EditText} views by calling the
  * {@link TextView#setError(CharSequence)} with a {@code null} parameter.
  *
  * @author Ragunath Jawahar {@literal <rj@mobsandgeeks.com>}
  * @since 2.0
  */
-public class DefaultViewValidatedAction implements Validator.ViewValidatedAction {
+public class DefaultValidatedAction implements Validator.ValidatedAction {
 
     @Override
     public void onAllRulesPassed(final Object obj) {
