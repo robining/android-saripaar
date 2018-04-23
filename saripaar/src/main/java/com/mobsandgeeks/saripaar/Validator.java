@@ -154,7 +154,9 @@ public class Validator {
         mValidationMode = Mode.BURST;
         mSequenceComparator = new SequenceComparator();
         mViewValidatedAction = new DefaultViewValidatedAction();
-        mValidationContext = new ValidationContext(context, mController);
+        if (context != null) {
+            mValidationContext = new ValidationContext(context, mController);
+        }
     }
 
     public Validator(final Object controller) {
@@ -451,7 +453,7 @@ public class Validator {
 
         List<Field> annotatedFields = new ArrayList<Field>();
         Class cls = controllerClass;
-        while (cls != null && !"java.lang.Object".equals(cls.getCanonicalName())){
+        while (cls != null && !"java.lang.Object".equals(cls.getCanonicalName())) {
             Field[] fields = cls.getDeclaredFields();
             for (Field field : fields) {
                 if (isSaripaarAnnotatedField(field, saripaarAnnotations)) {
